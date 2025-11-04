@@ -99,3 +99,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$config_error) {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto IA PHP - Explicador de Termos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Explicador de Termos Acadêmicos (IA + PHP)</h1>
+
+    <form method="post" action="index.php">
+        <label for="termo">Digite um Termo Acadêmico para Explicação:</label>
+        <input type="text" id="termo" name="termo" required placeholder="Ex: Algoritmo Genético, Paradigma Funcional..." 
+                value="<?php echo isset($termo) ? htmlspecialchars($termo) : ''; ?>">
+        <button type="submit">Explicar Termo com IA</button>
+    </form>
+</body>
+</html>
