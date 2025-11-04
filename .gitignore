@@ -1,0 +1,12 @@
+# Diretórios de dependências
+/vendor
+/node_modules
+
+# Arquivos de ambiente
+.env
+.env.*.local
+.env.local
+
+# Arquivos de log e cache (Exemplos comuns)
+/storage/logs/*.log
+/public/build
