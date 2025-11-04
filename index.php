@@ -117,5 +117,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$config_error) {
                 value="<?php echo isset($termo) ? htmlspecialchars($termo) : ''; ?>">
         <button type="submit">Explicar Termo com IA</button>
     </form>
+    <?php
+    // --- Exibe o Resultado ---
+    if ($_SERVER["REQUEST_METHOD"] == "POST" || $config_error) { // Exibe erros de config mesmo sem POST
+        
+        // Garante que $ia_response não é nulo se houver erro de configuração
+        if ($config_error && !isset($ia_response)) {
+             // Caso de erro no .env mas a $ia_response já foi definida na seção de try/catch
+        }
+        
+        if (isset($ia_response)) {
+            echo "<div class='resposta'>";
+            
+            // Só exibe o termo se não for um erro de configuração inicial (antes do POST)
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && !$config_error) {
+                echo "<h2>Termo: " . htmlspecialchars($termo) . "</h2>";
+                echo "<h3>Resultado:</h3>";
+            } elseif ($config_error) {
+                // Se for um erro de configuração (antes mesmo de enviar), mostra o erro diretamente
+                echo "<h2>Erro de Configuração</h2>";
+            }
+
+
+            // Se a resposta for uma string de erro (div), exibe o erro
+            if (strpos($ia_response, '<div class=') !== false) {
+                echo $ia_response; 
+            } else {
+                // Se for a resposta da IA, exibe o texto
+                echo "<p>" . nl2br(htmlspecialchars($ia_response)) . "</p>";
+            }
+
+            echo "</div>";
+        }
+    }
+    ?>
 </body>
 </html>
